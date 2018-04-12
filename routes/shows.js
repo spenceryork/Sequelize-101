@@ -4,7 +4,6 @@ const { getAllShows, createShow, getAShow, updateShow, deleteShow, postFavorite 
 const { Router } = require('express');
 const showRouter = Router();
 
-
 showRouter.get('/shows', getAllShows);
 showRouter.post('/shows', createShow);
 showRouter.get('/shows/:id', getAShow);

@@ -9,15 +9,26 @@ app.set('models', require('./models'));
 const models = app.get('models');
 const { User, Show, Director } = app.get('models')
 
-// middleware stack
+// MIDDLEWARE STACK
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/api/v1/', routes);
 
 
+// ERROR HANDLING
+app.use( (req, res, next) => {
+    let error = new Error("Not found");
+    error.status = 404;
+    next(error)
+});
 
-
-
+app.use( (error, req, res, next) => {
+    res.status ( error.status || 500 );
+    res.json({
+        message: "Error error error!",
+        error: error.message
+    });
+})
 
 
 

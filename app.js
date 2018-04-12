@@ -242,14 +242,6 @@ app.delete('/user/:id', (req, res, next) => {
 });
 
 
-// ADD ROUTES FOR THE NECESSARY CRUD OPTIONS
-// USE SEQUELIZE TO FIGURE OUT CRUD OPERATIONS
-
-
-
-
-
-
 
 
 

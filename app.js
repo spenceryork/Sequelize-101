@@ -101,76 +101,76 @@ app.use('/api/v1/', routes);
 
 // **** DIRECTORS ****
 
-// CREATE ONE DIRECTOR
-app.post('/directors', (req, res, next) => {
-    Director.create({
-        name: req.body.name,
-        birth_year: req.body.birth_year,
-        twitter_handle: req.body.twitter_handle
-    })
-    .then( director => {
-        res.status(200).json(director)
-    })
-    .catch( (error) => {
-        console.log("user could not be added", error)
-        res.status(500).json({error})
-    });
-});
+// // CREATE ONE DIRECTOR
+// app.post('/directors', (req, res, next) => {
+//     Director.create({
+//         name: req.body.name,
+//         birth_year: req.body.birth_year,
+//         twitter_handle: req.body.twitter_handle
+//     })
+//     .then( director => {
+//         res.status(200).json(director)
+//     })
+//     .catch( (error) => {
+//         console.log("user could not be added", error)
+//         res.status(500).json({error})
+//     });
+// });
 
 
-// GET ALL DIRECTORS
-app.get('/directors', (req, res, next) => {
-    Director.findAll({include: [{model: Show, attributes: ["name", "genre"]}]})
-    .then( directors => {
-        res.status(200).json(directors);
-    })
-    .catch( (error) => {
-        console.log("Directors not found", error)
-        res.status(500).json({error})
-    });
-});
+// // GET ALL DIRECTORS
+// app.get('/directors', (req, res, next) => {
+//     Director.findAll({include: [{model: Show, attributes: ["name", "genre"]}]})
+//     .then( directors => {
+//         res.status(200).json(directors);
+//     })
+//     .catch( (error) => {
+//         console.log("Directors not found", error)
+//         res.status(500).json({error})
+//     });
+// });
 
-// GET ONE DIRECTOR
-app.get('/directors/:id', (req, res, next) => {
-    Director.findOne({
-        raw: true,
-        where: {id: req.params.id},
-        include: [{model: Show, attributes: ["name"]}]
-    })
-    .then( director => {
-        res.status(200).json(director)
-    })
-    .catch( error => {
-        console.log("Director could not be found", error);
-        res.status(500).json(error)
-    });
-});
+// // GET ONE DIRECTOR
+// app.get('/directors/:id', (req, res, next) => {
+//     Director.findOne({
+//         raw: true,
+//         where: {id: req.params.id},
+//         include: [{model: Show, attributes: ["name"]}]
+//     })
+//     .then( director => {
+//         res.status(200).json(director)
+//     })
+//     .catch( error => {
+//         console.log("Director could not be found", error);
+//         res.status(500).json(error)
+//     });
+// });
 
-// UPDATE ONE DIRECTOR
-app.put('/directors/:id', (req, res, next) => {
-    Director.update({
-        name: req.body.name,
-        birth_year: req.body.birth_year,
-        twitter_handle: req.body.twitter_handle
-    }, {where: {id: req.params.id}})
-    .then( () => {
-        res.status(200).json();
-        console.log("Director has been updated");
-    });
-});
+// // UPDATE ONE DIRECTOR
+// app.put('/directors/:id', (req, res, next) => {
+//     Director.update({
+//         name: req.body.name,
+//         birth_year: req.body.birth_year,
+//         twitter_handle: req.body.twitter_handle
+//     }, {where: {id: req.params.id}})
+//     .then( () => {
+//         res.status(200).json();
+//         console.log("Director has been updated");
+//     });
+// });
 
-// DELETE ONE DIRECTOR
-app.delete('/directors/:id', (req, res, next) => {
-    console.log("delete is being called");
-    Director.destroy({
-        where: {id: req.params.id},
-        force: true
-    })
-    .catch( (err) => {
-        console.log("delete not complete", err);
-        res.status(500).json({error});
-    });
-});
+// // DELETE ONE DIRECTOR
+// app.delete('/directors/:id', (req, res, next) => {
+//     console.log("delete is being called");
+//     Director.destroy({
+//         where: {id: req.params.id},
+//         force: true
+//     })
+//     .catch( (err) => {
+//         console.log("delete not complete", err);
+//         res.status(500).json({error});
+//     });
+// });
 
 // **** USERS ****
 

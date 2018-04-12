@@ -1,8 +1,9 @@
 "use strict";
 
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
+const routes = require("./routes/");
+const bodyParser = require("body-parser");
 
 app.set('models', require('./models'));
 const models = app.get('models');
@@ -11,6 +12,7 @@ const { User, Show, Director } = app.get('models')
 // middleware stack
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/api/v1/', routes);
 
 // **** SHOWS ****
 
@@ -32,17 +34,17 @@ app.post('/shows', (req, res, next) => {
     })
 });
 
-// GET ALL SHOWS
-app.get('/shows', (req, res, next) => {
-    Show.findAll({include: [{model: Director, attributes: ["name"]}]})
-    .then( shows => {
-        res.status(200).json(shows);
-    })
-    .catch( err => {
-        console.log("oops", err);
-        res.status(500).json({error})
-    })
-});
+// // GET ALL SHOWS
+// app.get('/shows', (req, res, next) => {
+//     Show.findAll({include: [{model: Director, attributes: ["name"]}]})
+//     .then( shows => {
+//         res.status(200).json(shows);
+//     })
+//     .catch( err => {
+//         console.log("oops", err);
+//         res.status(500).json({error})
+//     })
+// });
 
 // GET ALL SHOWS WITH A SPECIFIC ID
 app.get('/shows/:id', (req, res, next) => {

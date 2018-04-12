@@ -170,7 +170,76 @@ app.delete('/directors/:id', (req, res, next) => {
     });
 });
 
+// **** USERS ****
 
+// CREATE ONE USER
+app.post('/users', (req, res, next) => {
+    User.create({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        username: req.body.username
+    })
+    .then( user => {
+        res.status(200).json(user)
+    })
+    .catch( (error) => {
+        console.log("user could not be added", error)
+        res.status(500).json({error})
+    });
+});
+
+
+// GET ALL USERS
+app.get('/users', (req, res, next) => {
+    User.findAll()
+    .then( users => {
+        res.status(200).json(users);
+    })
+    .catch( (error) => {
+        console.log("Users not found", error)
+        res.status(500).json({error})
+    });
+});
+
+// GET ONE USER
+app.get('/users/:id', (req, res, next) => {
+    User.findOne({
+        raw: true,
+        where: {id: req.params.id},
+    })
+    .then( user => {
+        res.status(200).json(user)
+    })
+    .catch( error => {
+        console.log("User could not be found", error);
+        res.status(500).json(error)
+    });
+});
+
+// UPDATE ONE USER
+app.put('/user/:id', (req, res, next) => {
+    User.update({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        username: req.body.username
+    }, {where: {id: req.params.id}})
+    .then( () => {
+        res.status(200).json();
+        console.log("User has been updated");
+    });
+});
+
+// DELETE ONE DIRECTOR
+app.delete('/user/:id', (req, res, next) => {
+    User.destroy({
+        where: {id: req.params.id},
+        force: true
+    })
+    .catch( (err) => {
+        console.log("delete not complete", err);
+        res.status(500).json({error});
+    });
+});
 
 
 // ADD ROUTES FOR THE NECESSARY CRUD OPTIONS

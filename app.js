@@ -17,22 +17,22 @@ app.use('/api/v1/', routes);
 // **** SHOWS ****
 
 // CREATE A SHOW
-app.post('/shows', (req, res, next) => {
-    Show.create({
-        name: req.body.name,
-        network: req.body.network,
-        genre: req.body.genre,
-        in_production: req.body.in_production,
-        directorId: req.body.directorId    
-    })
-    .then( (show) => {
-        res.status(200).json(show)
-    })
-    .catch( (error) => {
-        console.log('Show could not be added', error);
-        res.status(500).json(error);
-    })
-});
+// app.post('/shows', (req, res, next) => {
+//     Show.create({
+//         name: req.body.name,
+//         network: req.body.network,
+//         genre: req.body.genre,
+//         in_production: req.body.in_production,
+//         directorId: req.body.directorId    
+//     })
+//     .then( (show) => {
+//         res.status(200).json(show)
+//     })
+//     .catch( (error) => {
+//         console.log('Show could not be added', error);
+//         res.status(500).json(error);
+//     })
+// });
 
 // // GET ALL SHOWS
 // app.get('/shows', (req, res, next) => {
@@ -46,58 +46,58 @@ app.post('/shows', (req, res, next) => {
 //     })
 // });
 
-// GET ALL SHOWS WITH A SPECIFIC ID
-app.get('/shows/:id', (req, res, next) => {
-    Show.findOne({
-        raw: true,
-        where: {id: req.params.id},
-        include: [{model: Director, attributes: ["name"]}]
-    })
-    .then( show => {
-        res.status(200).json(show);
-    })
-    .catch( () => {
-        console.log("didn't work");
-    })
-});
+// // GET ALL SHOWS WITH A SPECIFIC ID
+// app.get('/shows/:id', (req, res, next) => {
+//     Show.findOne({
+//         raw: true,
+//         where: {id: req.params.id},
+//         include: [{model: Director, attributes: ["name"]}]
+//     })
+//     .then( show => {
+//         res.status(200).json(show);
+//     })
+//     .catch( () => {
+//         console.log("didn't work");
+//     })
+// });
 
-// UPDATE ONE SHOW
-app.put('/shows/:id', (req, res, next) => {
-    Show.update({
-        name: req.body.name,
-        network: req.body.network,
-        genre: req.body.genre,
-        in_production: req.body.in_production,
-        directorId: req.body.directorId 
-    }, {where: {id: req.params.id}})
-    .then( () => {
-        res.status(200).json();
-        console.log("Director has been updated");
-    });
-});
+// // UPDATE ONE SHOW
+// app.put('/shows/:id', (req, res, next) => {
+//     Show.update({
+//         name: req.body.name,
+//         network: req.body.network,
+//         genre: req.body.genre,
+//         in_production: req.body.in_production,
+//         directorId: req.body.directorId 
+//     }, {where: {id: req.params.id}})
+//     .then( () => {
+//         res.status(200).json();
+//         console.log("Director has been updated");
+//     });
+// });
 
-// DELETE A SHOW
-app.delete('/shows/:id', (req, res, next) => {
-    Show.destroy({
-        where: {id: req.params.id }
-    })
-    .catch( (err) => {
-        console.log("delete not complete", err);
-        res.status(500).json({error});
-    });
-});
+// // DELETE A SHOW
+// app.delete('/shows/:id', (req, res, next) => {
+//     Show.destroy({
+//         where: {id: req.params.id }
+//     })
+//     .catch( (err) => {
+//         console.log("delete not complete", err);
+//         res.status(500).json({error});
+//     });
+// });
 
-// ADD FAVORITE FOR A USER
-app.post('/favorites', ({body: { UserId, ShowId}}, res, next) => {
-    User.findById(UserId)
-    .then( foundUser => {
-        foundUser.addFavorite(ShowId)
-        .then( (newRecord) => {
-            console.log("new record", newRecord);
-            res.status(201).json(newRecord);
-        });
-    });
-});
+// // ADD FAVORITE FOR A USER
+// app.post('/favorites', ({body: { UserId, ShowId}}, res, next) => {
+//     User.findById(UserId)
+//     .then( foundUser => {
+//         foundUser.addFavorite(ShowId)
+//         .then( (newRecord) => {
+//             console.log("new record", newRecord);
+//             res.status(201).json(newRecord);
+//         });
+//     });
+// });
 
 // **** DIRECTORS ****
 
